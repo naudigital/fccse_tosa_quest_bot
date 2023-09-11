@@ -1,0 +1,18 @@
+version: "3"
+
+tasks:
+  isort:
+    desc: Format the project with isort
+    cmds:
+      - poetry run isort tosaquestbot
+
+  black:
+    desc: Format the project with black
+    cmds:
+      - poetry run black tosaquestbot
+
+  default:
+    desc: Format the project
+    deps:
+      - isort
+      - black

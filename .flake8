@@ -1,0 +1,10 @@
+[flake8]
+max-line-length = 100
+ignore =
+    Q000, D100, D104, D107, WPS305, WPS226,
+    D103, WPS323, WPS404, WPS412, WPS326, WPS237,
+    WPS336, WPS306
+max-awaits = 20
+max-returns = 10
+max-local-variables = 10
+max-methods = 15
