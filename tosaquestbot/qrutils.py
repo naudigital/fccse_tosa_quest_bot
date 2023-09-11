@@ -7,7 +7,7 @@ from typing import cast
 from cv2.typing import MatLike
 from qreader import QReader  # type: ignore
 
-pool = futures.ProcessPoolExecutor()
+pool = futures.ThreadPoolExecutor()
 
 qreader = QReader()
 
