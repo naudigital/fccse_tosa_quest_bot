@@ -1,3 +1,4 @@
+from logging import getLogger
 from typing import TYPE_CHECKING, cast
 
 import cv2
@@ -15,6 +16,8 @@ if TYPE_CHECKING:
     from tosaquestbot.services.user import UserService
 
 router = Router()
+
+logger = getLogger(__name__)
 
 
 @router.message(Command("start"))
@@ -132,6 +135,8 @@ async def photo(
     img = cv2.cvtColor(cv2.imdecode(file_bytes, cv2.IMREAD_COLOR), cv2.COLOR_BGR2RGB)
 
     decoded_text = await detect_and_decode(img)
+
+    logger.info("Decoded text: %s", decoded_text)
 
     if not decoded_text:
         await message.answer("Не вдалося розпізнати QR-код. Спробуйте ще раз")

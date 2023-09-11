@@ -1,6 +1,7 @@
 import asyncio
 import atexit
 from concurrent import futures
+from logging import getLogger
 from typing import cast
 
 from cv2.typing import MatLike
@@ -10,8 +11,11 @@ pool = futures.ProcessPoolExecutor()
 
 qreader = QReader()
 
+logger = getLogger(__name__)
+
 
 async def detect_and_decode(img: MatLike) -> tuple[str | None]:
+    logger.info("Detecting and decoding QR code")
     loop = asyncio.get_running_loop()
     return cast(
         tuple[str | None],  # noqa: WPS465

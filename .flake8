@@ -8,3 +8,4 @@ max-awaits = 20
 max-returns = 10
 max-local-variables = 10
 max-methods = 15
+max-expressions = 15
