@@ -147,6 +147,10 @@ async def photo(
         await message.answer("Не вдалося розпізнати QR-код. Спробуйте ще раз")
         return
 
+    if len(token_id) not in range(32, 37):  # noqa: WPS432
+        await message.answer("Не вдалося розпізнати QR-код. Спробуйте ще раз")
+        return
+
     token = await token_service.get_token(token_id)
 
     if not token:
