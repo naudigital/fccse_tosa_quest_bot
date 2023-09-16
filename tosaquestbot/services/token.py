@@ -197,3 +197,15 @@ class TokenService:
             await session.delete(activation)
             await session.commit()
         logger.info("Revoked activation %s", activation.id)
+
+    async def get_all_activations(self: "TokenService") -> list[models.Activation]:
+        """Get all activations.
+
+        Returns:
+            List of activations.
+        """
+        async with self.db.session() as session:
+            activations_seq = (
+                (await session.execute(select(models.Activation))).scalars().all()
+            )
+            return list(activations_seq)

@@ -231,3 +231,31 @@ async def revokeactivation(
     await message.answer(
         f"Revoked activation <code>{activation_id}</code>",
     )
+
+
+@router.message(Command("allactivationscsv"))
+@inject
+async def allactivationscsv(
+    message: types.Message,
+    token_service: "TokenService" = Provide["services.token"],
+) -> None:
+    if not message.from_user:
+        return
+
+    if not check_admin(message.from_user.id):
+        return
+
+    activations = await token_service.get_all_activations()
+
+    text = "id,token_id,user_id,time\n"
+    for activation in activations:  # noqa: WPS519
+        text += (
+            f"{activation.id},"
+            f"{activation.token_id},"
+            f"{activation.user_id},"
+            f"{activation.time}\n"
+        )
+
+    await message.answer_document(
+        types.BufferedInputFile(text.encode(), filename="activations.csv"),
+    )

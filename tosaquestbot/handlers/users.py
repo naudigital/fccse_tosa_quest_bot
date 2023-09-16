@@ -104,6 +104,37 @@ async def topusers(
     await message.answer(text)
 
 
+@router.message(Command("alluserscsv"))
+@inject
+async def alluserscsv(
+    message: types.Message,
+    user_service: "UserService" = Provide["services.user"],
+) -> None:
+    if not message.from_user:
+        return
+
+    if not check_admin(message.from_user.id):
+        return
+
+    if not message.text:
+        return
+
+    users = await user_service.get_all_users()
+
+    text = "id,telegram_id,first_name,username\n"
+    for user in users:  # noqa: WPS519
+        text += (
+            f"{user.id},"
+            f"{user.telegram_id},"
+            f"{user.first_name},"
+            f"{user.username},"
+        )
+
+    await message.answer_document(
+        types.BufferedInputFile(text.encode(), filename="users.csv"),
+    )
+
+
 @router.message(Command("sendtext"))
 @inject
 async def sendtext(
