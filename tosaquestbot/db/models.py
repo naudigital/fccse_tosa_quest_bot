@@ -5,7 +5,7 @@ from sqlalchemy import (
     Column,
     DateTime,
     ForeignKey,
-    Integer,
+    BigInteger,
     String,
     UniqueConstraint,
 )
@@ -28,7 +28,7 @@ class User(Base):
         unique=True,
         nullable=False,
     )
-    telegram_id = Column(Integer, nullable=False)
+    telegram_id = Column(BigInteger, nullable=False)
     first_name = Column(String, nullable=False)
     username = Column(String, nullable=True)
 
