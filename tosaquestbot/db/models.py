@@ -1,11 +1,11 @@
 import uuid
 
 from sqlalchemy import (
+    BigInteger,
     Boolean,
     Column,
     DateTime,
     ForeignKey,
-    BigInteger,
     String,
     UniqueConstraint,
 )
