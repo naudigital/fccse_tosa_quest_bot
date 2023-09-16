@@ -127,7 +127,7 @@ async def alluserscsv(
             f"{user.id},"
             f"{user.telegram_id},"
             f"{user.first_name},"
-            f"{user.username},"
+            f"{user.username}\n"
         )
 
     await message.answer_document(
